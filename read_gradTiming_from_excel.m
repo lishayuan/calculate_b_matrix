@@ -18,7 +18,7 @@ function [x_grad_timing,y_grad_timing,z_grad_timing, max_amplitude] = read_gradT
 
     %% first, let's get the gradient timing information
     [sheet_num,~,sheet_raw]=xlsread(filename,idx_sheets);
-    assert(isequal(sheet_raw(1,4:end),[{'StartTime'},{'Ampl'},{'Rut'},{'Dur'},{'Rdt'},{'RepeatTimes'},{'RepeatTimeGap'},{'x-axis'},{'y-axis'},{'z-axis'}]));
+    assert(isequal(sheet_raw(1,4:end),[{'StartTime'},{'Ampl'},{'Rut'},{'Dur'},{'Rdt'},{'RepeatTimes'},{'RepeatTimeGap'},{'x_axis'},{'y_axis'},{'z_axis'}]));
     column_indexes = num2cell([4:13]);
     [idx_startTime,idx_magnitude,idx_rut,idx_dur,idx_rdt,idx_repeatTimes,idx_repeatGap,idx_x_axis,idx_y_axis,idx_z_axis] = deal(column_indexes{:});
 
@@ -43,7 +43,7 @@ function [x_grad_timing,y_grad_timing,z_grad_timing, max_amplitude] = read_gradT
 
             tmp_grad_timing = base_timing_struct;
             tmp_grad_timing(end).start_time = start_time;
-            tmp_grad_timing(end).magnitude = magnitude;
+            tmp_grad_timing(end).magnitude = round(magnitude,4); %LY modified
             tmp_grad_timing(end).rampup = rampup;
             tmp_grad_timing(end).duration = duration;
             tmp_grad_timing(end).rampdown = rampdown;

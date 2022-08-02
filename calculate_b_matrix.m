@@ -1,10 +1,3 @@
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function b_matrix = calculate_b_matrix(filename)
 % Function statement: the main pipeline to calculate b matrix
 
@@ -46,5 +39,14 @@ if (isequal(calcParams.seqType, 'EPI/PGSE/OGSE/TGSE'))         % EPI/OGSE/PGSE/T
     disp('dEPI: b matrix has been calculated.');
 else
 	assert(isequal(calcParams.seqType, 'SPEN'), 'unknown sequence type!'); % only SPEN is supported.
-    b_matrix =  calc_bMatrix_from_combinedGradPulse_for_spen(combinedGradPulse,timePoints, calcParams);
+
+    switch calcParams.flag_UniformTA
+        case 0 % 'accurate'
+            b_matrix =  calc_bMatrix_from_combinedGradPulse_for_spen(combinedGradPulse,timePoints, calcParams);
+        case 1 % 'approximate: uniform TA'
+            b_matrix =  calc_bMatrix_from_combinedGradPulse_for_spen_uniformTA(combinedGradPulse,timePoints, calcParams);
+        otherwise
+            error('For SPEN sequence: the flag definition cannot be recognized!');
+    end
+
 end

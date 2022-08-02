@@ -1,10 +1,3 @@
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function b_matrix = calc_bMatrix_from_combinedGradPulse_for_spen(combined_gradPulse, time_points, calc_parames)
 %   Function statement: calculate b matrix for SPEN sequence
 %   input:

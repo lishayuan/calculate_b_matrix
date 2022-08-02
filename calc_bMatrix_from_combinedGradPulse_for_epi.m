@@ -1,10 +1,3 @@
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function b_matrix = calc_bMatrix_from_combinedGradPulse_for_epi(combined_gradPulse,half_echoTime)
 %   Function statement: calculate b matrix for EPI sequence
 %   input:

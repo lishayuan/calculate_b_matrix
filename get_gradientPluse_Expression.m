@@ -1,10 +1,3 @@
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function  pulse_list = get_gradientPluse_Expression(grad_timing,base_function_struct)
     %   Function statement: expain each gradient timing as several piecewise functions
     %   input:

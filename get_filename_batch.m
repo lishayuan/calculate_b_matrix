@@ -1,10 +1,3 @@
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function [filepath, filename, name] = get_filename_batch(file_wildcard)
 % return the filepath, filename, name(without extension)
 [filepath, ~, ~] = fileparts(file_wildcard);

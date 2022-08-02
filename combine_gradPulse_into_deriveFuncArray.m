@@ -1,10 +1,3 @@
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function derive_pulse_list = combine_gradPulse_into_deriveFuncArray(x_grad_pulses,y_grad_pulses,z_grad_pulses, time_points, derive_function_struct)
 %   Function statement: combine functions of gradient pulses from all three axes together
 %	input:

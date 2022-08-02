@@ -1,10 +1,3 @@
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function [calc_params, time_points] = extract_timepoints_from_gradPulse_controlVariable(x_grad_pulses,y_grad_pulses,z_grad_pulses, filename, idx_sheets)
 %   Function statement: read gradient timing ([Ampl, Rut, Dur, Rdt, StartTime]) for each axis
 %   input:
@@ -53,25 +46,25 @@ if (isequal(sheet_raw(2,1),{'seqType'}))
         case 1
             %% Step 1: let's obtain control variables
             calc_params.seqType = 'SPEN';
-            assert(isequal(reshape(sheet_raw(3:end,1),[1,6]),[{'yFirstExcite'},{'yLastExcite'},{'Nspen'},{'RF180ss'},{'yFirstRefoc'},{'yLastRefoc'}]));
+            assert(isequal(reshape(sheet_raw(3:end,1),[1,7]),[{'yFirstExcite'},{'yLastExcite'},{'Nspen'},{'RF180ss'},{'yFirstRefoc'},{'yLastRefoc'},{'flag_UniformTA'}]));
             calc_params.yFirstExcite = sheet_num(2,1);
             calc_params.yLastExcite = sheet_num(3,1);
             calc_params.Nspen = sheet_num(4,1);
             calc_params.RF180ss = sheet_num(5,1);       % halfEchoTime
             calc_params.yFirstRefoc = sheet_num(6,1);
             calc_params.yLastRefoc = sheet_num(7,1);
+            calc_params.flag_UniformTA = sheet_num(8,1);
             
             %% Step 2:  combine & unique/sort & restrict all time points
-            b_matrix_definition = 'accurate'; % 'true' or 'false'
-            switch b_matrix_definition
-                case 'accurate'
+            switch calc_params.flag_UniformTA
+                case 0 % 'accurate'
                     calcRefocTime = create_equispaced_timepoints(calc_params.yFirstRefoc, calc_params.yLastRefoc, calc_params.Nspen);
                     time_points_2 = [calc_params.yFirstExcite calc_params.RF180ss calcRefocTime']'; % for the accurate calculation
                     clear calcRefocTime
-                case 'approximate'
+                case 1 % 'approximate: uniform TA'
                     time_points_2 = [calc_params.yFirstExcite calc_params.RF180ss calc_params.yLastRefoc]'; % for the approximate calculation
                 otherwise
-                    error('For SPEN sequence: the definition of b matrix is not clear!');
+                    error('For SPEN sequence: the flag definition cannot be recognized!');
             end
             time_points = [time_points_1; time_points_2];
             time_points = sort(unique(time_points));

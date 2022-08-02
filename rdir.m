@@ -1,11 +1,3 @@
-
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function [varargout] = rdir(rootdir,varargin)
 % Lists the files in a directory and its sub directories. 
 % 

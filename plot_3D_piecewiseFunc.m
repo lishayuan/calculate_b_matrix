@@ -1,10 +1,3 @@
-%*******************************************************************
-%	Copyright 2019-2021 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction:
-%********************************************************************
-
 function plot_3D_piecewiseFunc(piecewiseFuncStruct, time_points, maxAmplitude)
 %   Function statement: plot the 3D piecewise function and check the timing
 %   input:
@@ -35,7 +28,8 @@ for idx = 1:(size(time_points,1)-1)
         set(gca,'FontName','Times New Roman','FontSize',14,'FontWeight','bold','LineWidth',2) 
         % title('The piecewise function of z-axis','FontName','Times New Roman','FontSize',20);
         box off
-        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
+        % axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
+        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -260, 200])
     end
 
     %% Step 2: plot the piecewise function of y-axis
@@ -50,7 +44,8 @@ for idx = 1:(size(time_points,1)-1)
         set(gca,'FontName','Times New Roman','FontSize',14,'FontWeight','bold','LineWidth',2) 
         % title('The piecewise function of y-axis','FontName','Times New Roman','FontSize',20);
         box off
-        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
+        % axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
+        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -70, 60])
     end
     
     %% Step 3: plot the piecewise function of x-axis
@@ -65,7 +60,8 @@ for idx = 1:(size(time_points,1)-1)
         set(gca,'FontName','Times New Roman','FontSize',14,'FontWeight','bold','LineWidth',2) 
         % title('The piecewise function of ','FontName','Times New Roman','FontSize',20);
         box off
-        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
+        % axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
+        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -200, 200])
     end
     
     clear start_time end_time
