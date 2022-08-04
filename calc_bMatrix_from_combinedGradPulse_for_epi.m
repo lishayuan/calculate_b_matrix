@@ -1,19 +1,20 @@
+%*******************************************************************
+%	Copyright 2019-2020
+%   Author: Lisha Yuan (lishayuan@zju.edu.cn)
+    %   Function statement: calculate b matrix for SE/SE-EPI sequence
+    %   input:
+    %           combined_gradPulse - the 3D piecewise function (combing xGradPulse,yGradPulse and zGradPulse)
+    %           calc_parames - important parameters used to calculate b-matrix
+    % 
+    %   output:
+    %       b_matrix - includes six b elements [bxx byy bzz bxy bxz byz]
+%********************************************************************
 function b_matrix = calc_bMatrix_from_combinedGradPulse_for_epi(combined_gradPulse,half_echoTime)
-%   Function statement: calculate b matrix for EPI sequence
-%   input:
-%           combined_gradPulse - the 3D piecewise function (combing xGradPulse,yGradPulse and zGradPulse)
-%           calc_parames - important parameters used to calculate b-matrix
-% 
-%   output:
-%           b_matrix - includes six b elements [bxx byy bzz bxy bxz byz]
-% 
-% 
-%   (c) Lisha Yuan 2019
 
 syms unknown_T          % constant_0;
 gama = 42.5756*10^6;    % 1/(T*s), excluding 2*pi
 
-% integral_func_value (a structure): save the integral value of the function at specified point
+%% Part I: a structure to save the integral value of the gradient function at specified point
 integral_func_value = struct('time', 0, 'F_x', 0, 'F_y', 0,'F_z', 0, 'F_x_tmp', 0, 'F_y_tmp', 0, 'F_z_tmp',0);
 first_integral_value = integral_func_value;
 first_integral_value.time = combined_gradPulse(1).start_time;
@@ -26,7 +27,8 @@ Fy_half_echoTime = 0;
 Fz_half_echoTime = 0;
 
 tmp_b_matrix = zeros(size(combined_gradPulse,1),6);
-% let's do the b matrix calculation 
+
+%% Part II: calculate the b-matrix
 for idx = 1 : size(combined_gradPulse,1)
     start_time = combined_gradPulse(idx).start_time;
     end_time = combined_gradPulse(idx).end_time;
@@ -36,7 +38,7 @@ for idx = 1 : size(combined_gradPulse,1)
     end
     assert(first_integral_value(idx).time == start_time);
     
-    % step 1: calculate Fx_func, Fy_func, Fz_func
+    %% step 1: calculate Fx_func, Fy_func, Fz_func
     Fx_start = first_integral_value(idx).F_x;
     x_func = combined_gradPulse(idx).x_func;
     int_x_func = int(x_func, unknown_T);
@@ -58,13 +60,13 @@ for idx = 1 : size(combined_gradPulse,1)
     Fz_end = double(subs(Fz_func, unknown_T, end_time));
     clear Fz_start z_func int_z_func
     
-    % step 2a: label Fx(/Fy/Fz)_half_echoTime (at appropriate segment)
+    %% step 2a: label Fx(/Fy/Fz)_half_echoTime (at appropriate segment)
     if (end_time == half_echoTime)
         Fx_half_echoTime = Fx_end;
         Fy_half_echoTime = Fy_end;
         Fz_half_echoTime = Fz_end;
     end
-    % step 2b: save end_time and the correspinding Fx_end/Fy_end/Fz_end
+    %% step 2b: save end_time and the correspinding Fx_end/Fy_end/Fz_end
     first_integral_value = cat(1,first_integral_value, integral_func_value);
     first_integral_value(end).time = end_time;
     first_integral_value(end).F_x = Fx_end;
@@ -75,7 +77,7 @@ for idx = 1 : size(combined_gradPulse,1)
     first_integral_value(end).F_z_tmp = Fz_end-2*lambda*Fz_half_echoTime;
     clear Fx_end Fy_end Fz_end
     
-    % step 3: calculate the b-Matrix based on Fi*Fj
+    %% step 3: calculate the b-matrix based on Fi*Fj
 	tmp_bxx = (2*pi*gama).^2*int((Fx_func-2*lambda*Fx_half_echoTime)*(Fx_func-2*lambda*Fx_half_echoTime), unknown_T, start_time, end_time).*10^(-30);
     tmp_byy = (2*pi*gama).^2*int((Fy_func-2*lambda*Fy_half_echoTime)*(Fy_func-2*lambda*Fy_half_echoTime), unknown_T, start_time, end_time).*10^(-30);
 	tmp_bzz = (2*pi*gama).^2*int((Fz_func-2*lambda*Fz_half_echoTime)*(Fz_func-2*lambda*Fz_half_echoTime), unknown_T, start_time, end_time).*10^(-30);

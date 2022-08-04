@@ -1,8 +1,6 @@
 %*******************************************************************
-%	Copyright 2019-2020 Lisha Yuan
-%   File name:
-%   Author: Lisha Yuan
-%   Brief introduction: read the timing parameter from the data sheet
+%	Copyright 2019-2020
+%   Author: Lisha Yuan (lishayuan@zju.edu.cn)
     %   Function statement: read gradient timing ([Ampl, Rut, Dur, Rdt, StartTime]) for each axis
     %   input:
     %       filename - the name of one excel file which defines the gradients' timing
@@ -11,7 +9,7 @@
     %       x_grad_timing - timing of each gradient in x-axis
     %       y_grad_timing - timing of each gradient in y-axis
     %       z_grad_timing - timing of each gradient in z-axis
-    %       calc_Params: important parameters used to calculate b-matrix
+    %       max_amplitude: record the max amplitude of all gradident pulses
 %********************************************************************
 
 function [x_grad_timing,y_grad_timing,z_grad_timing, max_amplitude] = read_gradTiming_from_excel(filename, idx_sheets, base_timing_struct)
@@ -76,7 +74,7 @@ function [x_grad_timing,y_grad_timing,z_grad_timing, max_amplitude] = read_gradT
                 x_grad_timing = cat(1, x_grad_timing, direct_grad_timing);
                 clear direct_grad_timing
             end
-            %y axis
+            % y axis
             if direction(1,2) ~= 0
                 assert(direction(1,2)==1 || direction(1,2)==-1);
                 direct_grad_timing = grad_timing;
@@ -86,7 +84,7 @@ function [x_grad_timing,y_grad_timing,z_grad_timing, max_amplitude] = read_gradT
                 y_grad_timing = cat(1, y_grad_timing, direct_grad_timing);
                 clear direct_grad_timing
             end
-            %z axis
+            % z axis
             if direction(1,3) ~= 0
                 assert(direction(1,3)==1 || direction(1,3)==-1);
                 direct_grad_timing = grad_timing;

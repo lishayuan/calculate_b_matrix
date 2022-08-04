@@ -1,13 +1,15 @@
+%*******************************************************************
+%	Copyright 2019-2020
+%   Author: Lisha Yuan (lishayuan@zju.edu.cn)
+    %   Function statement: plot the 3D piecewise function and check the timing
+    %   input:
+    %           piecewiseFuncStruct - define 3D piecewise function in struct array
+    %                   each struct contain [start_time, end_time, x_func, y_func, z_func]
+    %           time_points - the individual time point which separates the 3D piecewise function
+    %           maxAmplitude - the max amplitude of the 3D piecewise function
+%********************************************************************
+
 function plot_3D_piecewiseFunc(piecewiseFuncStruct, time_points, maxAmplitude)
-%   Function statement: plot the 3D piecewise function and check the timing
-%   input:
-%           piecewiseFuncStruct - define 3D piecewise function in struct array
-%                   each struct contain [start_time, end_time, x_func, y_func, z_func]
-%           time_points - the individual time point which separates the 3D piecewise function
-%           maxAmplitude - the max amplitude of the 3D piecewise function
-% 
-% 
-%   (c) Lisha Yuan 2019
 set(0,'defaultfigurecolor','w')
 
 scale_factor = 1.1;
@@ -28,8 +30,7 @@ for idx = 1:(size(time_points,1)-1)
         set(gca,'FontName','Times New Roman','FontSize',14,'FontWeight','bold','LineWidth',2) 
         % title('The piecewise function of z-axis','FontName','Times New Roman','FontSize',20);
         box off
-        % axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
-        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -260, 200])
+        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor]) % [-260, 200]
     end
 
     %% Step 2: plot the piecewise function of y-axis
@@ -44,8 +45,7 @@ for idx = 1:(size(time_points,1)-1)
         set(gca,'FontName','Times New Roman','FontSize',14,'FontWeight','bold','LineWidth',2) 
         % title('The piecewise function of y-axis','FontName','Times New Roman','FontSize',20);
         box off
-        % axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
-        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -70, 60])
+        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor]) % [-70, 60]
     end
     
     %% Step 3: plot the piecewise function of x-axis
@@ -60,8 +60,7 @@ for idx = 1:(size(time_points,1)-1)
         set(gca,'FontName','Times New Roman','FontSize',14,'FontWeight','bold','LineWidth',2) 
         % title('The piecewise function of ','FontName','Times New Roman','FontSize',20);
         box off
-        % axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor])
-        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -200, 200])
+        axis([piecewiseFuncStruct(1).start_time, piecewiseFuncStruct(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor]) % [-200, 200]
     end
     
     clear start_time end_time

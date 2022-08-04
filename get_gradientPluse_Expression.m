@@ -1,24 +1,26 @@
-function  pulse_list = get_gradientPluse_Expression(grad_timing,base_function_struct)
+%*******************************************************************
+%	Copyright 2019-2020
+%   Author: Lisha Yuan (lishayuan@zju.edu.cn)
     %   Function statement: expain each gradient timing as several piecewise functions
     %   input:
-    %       gradTiming - all gradient events
-    %                   each line means one gradient, and it contains timing parameters as follows,  
-    %                   amplitude       : the amplitude of the ramp up
-    %                   rampUpTime      : the ramp up time
-    %                   duration        : ramp up and hold time 
-    %                   rampDownTime    : the ramp dowm time
-    %                   startTime       : the start time for pulse
-    %       BaseFunctStruct - the base structure to define the piecewise function
-    %                         besides, make sure the the default function is an invalid value
+    %       grad_timing - all gradient events
+    %               each line contains the following timing parameters of one gradient,  
+    %                   start_time  : the start time
+    %                   magnitude   : the amplitude
+    %                   rampup      : the ramp up time
+    %                   duration    : ramp up and hold time 
+    %                   rampdown    : the ramp dowm time            
+    %       base_function_struct - the base structure to define the piecewise function
     % 
     %   output:
-    %       unique_pulse_list - a list of functions (contain the symbolic unknown_T constant_0)
-    %                           if two ramp functions were defined within one segment, merge them.
-    %       flag_grad_merge - tell the user if there is gradients merge case.
-    % 
-    % 
-    %	(c) Lisha Yuan 2019
-
+    %       pulse_list - a list of functions (contain the symbolic unknown_T and constant_0)
+    %
+    %       (Optional) If two ramp functions were defined within one segment, merge them.
+    %               unique_pulse_list
+    %               flag_grad_merge     - tell the user if there is gradients merge case.
+%********************************************************************
+    
+function  pulse_list = get_gradientPluse_Expression(grad_timing,base_function_struct)
     syms unknown_T;
     %% Part I: explain individual gradient event as several functions
     pulse_list = [];
