@@ -4,7 +4,7 @@ close all
 
 tic
 %% Step 1: Define the folder & names for the GradientsTiming excel-files
-[filepath, filename, name] = get_filename_batch('E:\toolbox_LY\calculate_b_matrix\demo\31_SPEN*.xlsx');
+[filepath, filename, name] = get_filename_batch([pwd, filesep, '*.xlsx']);
 mkdir([filepath, filesep, 'b_matrix']); % make new folder to save the calculated b-matrix
 
 Num_files = length(filename);
