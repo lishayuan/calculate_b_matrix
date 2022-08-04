@@ -10,6 +10,7 @@
     %       y_grad_timing - timing of each gradient in y-axis
     %       z_grad_timing - timing of each gradient in z-axis
     %       max_amplitude: record the max amplitude of all gradident pulses
+    
 %********************************************************************
 
 function [x_grad_timing,y_grad_timing,z_grad_timing, max_amplitude] = read_gradTiming_from_excel(filename, idx_sheets, base_timing_struct)

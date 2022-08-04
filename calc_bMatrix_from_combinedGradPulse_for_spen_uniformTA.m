@@ -13,6 +13,7 @@
     % During the first section, we assume that,
     %       i. the accumulated integral value along y-axis is accumStartFy
     %       ii. there is no pulse along the x- or z-axis 
+    
 %********************************************************************
 function b_matrix = calc_bMatrix_from_combinedGradPulse_for_spen_uniformTA(combined_gradPulse, time_points, calc_parames)
 

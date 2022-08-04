@@ -11,6 +11,7 @@
     % 
     %   output:
     %       derive_pulse_list - the 3D piecewise function combined from three axes
+    
 %********************************************************************
 
 function derive_pulse_list = combine_gradPulse_into_deriveFuncArray(x_grad_pulses,y_grad_pulses,z_grad_pulses, time_points, derive_function_struct)

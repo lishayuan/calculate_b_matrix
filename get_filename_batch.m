@@ -1,5 +1,6 @@
 function [filepath, filename, name] = get_filename_batch(file_wildcard)
 % return the filepath, filename, name(without extension)
+
 [filepath, ~, ~] = fileparts(file_wildcard);
 file = cellstr(ls(file_wildcard));
 Num_files = length(file);

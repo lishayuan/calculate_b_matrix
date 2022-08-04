@@ -7,6 +7,7 @@
     %                   each struct contain [start_time, end_time, x_func, y_func, z_func]
     %           time_points - the individual time point which separates the 3D piecewise function
     %           maxAmplitude - the max amplitude of the 3D piecewise function
+    
 %********************************************************************
 
 function plot_3D_piecewiseFunc(piecewiseFuncStruct, time_points, maxAmplitude)

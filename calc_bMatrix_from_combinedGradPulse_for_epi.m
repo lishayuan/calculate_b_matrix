@@ -8,6 +8,7 @@
     % 
     %   output:
     %       b_matrix - includes six b elements [bxx byy bzz bxy bxz byz]
+    
 %********************************************************************
 function b_matrix = calc_bMatrix_from_combinedGradPulse_for_epi(combined_gradPulse,half_echoTime)
 

@@ -14,6 +14,7 @@
     %   output:
     %       calc_Params: control variables used to calculate b-matrix
     %       time_points: time points (used to construct a 3D piecewise function)
+    
 %********************************************************************
 
 function [calc_params, time_points] = extract_timepoints_from_gradPulse_controlVariable(x_grad_pulses,y_grad_pulses,z_grad_pulses, filename, idx_sheets)

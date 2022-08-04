@@ -19,7 +19,6 @@ clear xGradTiming yGradTiming zGradTiming baseFuncStruct
 
 %% Part IIIa: time points selection [calcParameters, time_points]
 % calcParameters: control variables (for specific sequence)
-
 idx_sheets = 2;
 [calcParams, timePoints] = extract_timepoints_from_gradPulse_controlVariable(xGradPulse,yGradPulse,zGradPulse,filename,idx_sheets);
 

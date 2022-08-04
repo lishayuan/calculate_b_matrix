@@ -18,6 +18,7 @@
     %       (Optional) If two ramp functions were defined within one segment, merge them.
     %               unique_pulse_list
     %               flag_grad_merge     - tell the user if there is gradients merge case.
+    
 %********************************************************************
     
 function  pulse_list = get_gradientPluse_Expression(grad_timing,base_function_struct)
