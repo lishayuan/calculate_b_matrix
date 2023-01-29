@@ -17,14 +17,17 @@ function b_matrix = num__calc_bMatrix_numerical(eff_grad_series, deta_t)
 
 gama = 42.5756*10^6;    % 1/(T*s), excluding 2*pi
 
+%% Part I: the gradient time series
 func_x = eff_grad_series(:,1);
 func_y = eff_grad_series(:,2);
 func_z = eff_grad_series(:,3);
 
-int_func_x = f_int_func_discrete(func_x, deta_t);
+%% Part II: numerical integration of the gradient time series
+int_func_x = f_int_func_discrete(func_x, deta_t); % the definite integral
 int_func_y = f_int_func_discrete(func_y, deta_t);
 int_func_z = f_int_func_discrete(func_z, deta_t);
 
+%% Part III: Product
 int_func_xx = int_func_x.*int_func_x;
 int_func_yy = int_func_y.*int_func_y;
 int_func_zz = int_func_z.*int_func_z;
@@ -32,6 +35,7 @@ int_func_xy = int_func_x.*int_func_y;
 int_func_xz = int_func_x.*int_func_z;
 int_func_yz = int_func_y.*int_func_z;
 
+%% Part IV: b-matrix
 b_xx = f_int_func_discrete(int_func_xx, deta_t);
 b_yy = f_int_func_discrete(int_func_yy, deta_t);
 b_zz = f_int_func_discrete(int_func_zz, deta_t);
@@ -43,7 +47,7 @@ b_matrix= [b_xx(end) b_yy(end) b_zz(end) b_xy(end) b_xz(end) b_yz(end)]*(2*pi*ga
 
 
 function int_func = f_int_func_discrete(func, deta_t)
-% calculate the definite integral for discrete data
+%% calculate numerical integration
 num_points = length(func);
 func_1 = func(1:num_points-1);
 func_2 = func(2:num_points);

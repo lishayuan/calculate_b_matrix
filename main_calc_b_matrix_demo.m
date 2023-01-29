@@ -19,21 +19,21 @@ clc
 clear
 close all
 %% Part I: Select the excel file and the approach to calculate the b-matrix
-tic
 
 [file, filepath] = uigetfile('*.xlsx'); % select the excel file
 Flag_use_symbolic = true;   % select the approach to calculate b-matrix
 
 if(Flag_use_symbolic == true)
     % Method 1: (default) Auto-b based on the divide-and-conquer approach 
-	b_matrix = sym__calculate_b_matrix([filepath, filesep, file]);
+	b_matrix = sym__calculate_b_matrix([filepath, file]);
 else
     % Method 2:  Auto-b based on numerical integration 
-	b_matrix = num__calculate_b_matrix([filepath, filesep, file]);
+	b_matrix = num__calculate_b_matrix([filepath, file]);
 end
 
+
 %% Part II: (optional) Save the result
-% Step 1: (output folder) filepath/b_matrix
+% Step 1: (output folder) filepath\b_matrix
 output_filepath = [filepath, filesep, 'b_matrix'];
 if exist (output_filepath, 'dir')~= 7 % output folder
     mkdir(output_filepath);
@@ -46,5 +46,3 @@ output_file = [output_filepath, filesep, name, '.mat'];
 % Step 3: save the result
 save(output_file, 'b_matrix')
 clear output_filepath name output_file
-
-toc

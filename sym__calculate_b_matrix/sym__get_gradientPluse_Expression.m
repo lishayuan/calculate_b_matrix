@@ -22,9 +22,9 @@
     
 function  pulse_list = sym__get_gradientPluse_Expression(grad_spec, func_struct)
     syms unknown_T;
-    %% Part I: explain each gradient shape as several subfunctions
     pulse_list = [];
     for idx = 1:size(grad_spec,1)
+        %% Part I: read the specification of individual gradient
         startTime       = grad_spec(idx).start_time;    % us
     	amplitude       = grad_spec(idx).amplitude;     % mT/m
     	rampUpTime      = grad_spec(idx).rampup;        % us
@@ -32,6 +32,7 @@ function  pulse_list = sym__get_gradientPluse_Expression(grad_spec, func_struct)
     	rampDownTime    = grad_spec(idx).rampdown;      % us
         gradShape       = grad_spec(idx).shape;
 
+        %% Part II: explain each gradient shape as several subfunctions
         switch gradShape{1}
             case 'Sinusoid'
                 % disp('The gradient has a sinusoidal shape.');
@@ -76,8 +77,7 @@ function  pulse_list = sym__get_gradientPluse_Expression(grad_spec, func_struct)
                 end
 
             otherwise
-                disp('The gradient has an undefined shape!')
-                error('The new gradient shape should define its function by yourself!');
+                error('Undefined gradient shape! Please define its sub-functions!');
         end
         clear startTime amplitude rampUpTime duration rampDownTime gradShape
     end

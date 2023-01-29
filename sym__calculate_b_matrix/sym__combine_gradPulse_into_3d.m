@@ -21,12 +21,12 @@ function combined_grad_pulses = sym__combine_gradPulse_into_3D(x_grad_pulses, y_
 combined_grad_pulses = [];
 for idx = 1:(size(time_points,1)-1)
     
-    %% For each interval, define [start_time end_time]
+    %% Part I: For each interval, define [start_time end_time]
     combined_grad_pulses = cat(1,combined_grad_pulses, derive_struct);
     combined_grad_pulses(idx).start_time = time_points(idx);
     combined_grad_pulses(idx).end_time = time_points(idx+1);
     
-    %% For each interval, define x_func
+    %% Part IIa: For each interval, define x_func
     % If there is x_grad_pulses.func defined. Otherwise, keep x_func = 0.
     for func_idx = 1:size(x_grad_pulses,1)
         if (( combined_grad_pulses(idx).start_time >= x_grad_pulses(func_idx).start_time) ...
@@ -36,7 +36,7 @@ for idx = 1:(size(time_points,1)-1)
         end
     end
 
-    %% For each interval, define y_func
+    %% Part IIb: For each interval, define y_func
     % If there is y_grad_pulses.func defined. Otherwise, keep y_func = 0.
     for func_idx = 1:size(y_grad_pulses,1)
         if (( combined_grad_pulses(idx).start_time >= y_grad_pulses(func_idx).start_time) ...
@@ -46,7 +46,7 @@ for idx = 1:(size(time_points,1)-1)
         end
     end
 
-    %% For each interval, define z_func
+    %% Part IIc: For each interval, define z_func
     % If there is z_grad_pulses.func defined. Otherwise, keep z_func = 0.
     for func_idx = 1:size(z_grad_pulses,1)
         if (( combined_grad_pulses(idx).start_time >= z_grad_pulses(func_idx).start_time) ...

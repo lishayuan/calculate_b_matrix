@@ -13,10 +13,10 @@
 %                           rampup      : the ramp up time
 %                           duration    : ramp up and hold time 
 %                           rampdown    : the ramp dowm time
-%       time points - sampling points of the discrete data
+%       time points - sampling time points of the discrete data
 %                     (uniformly discretizing the whole time)
 %   output:
-%       grad_series - discrete gradient data (gradients of the same axis)
+%       grad_series - discrete gradient data of the same axis
 %
 %   Copyright 2023, Lisha Yuan (lishayuan@zju.edu.cn)
 %*************************************************************************
@@ -24,8 +24,8 @@
 function  grad_series = num__get_gradientPluse_timeSeries(grad_spec, time_points)
 
     grad_series = zeros(length(time_points), 1);
-    %% Part I: explain individual gradient event as several functions
     for idx = 1:size(grad_spec,1)
+        %% Part I: read the specification of individual gradient
         startTime       = grad_spec(idx).start_time;  % s
     	amplitude       = grad_spec(idx).amplitude;  % T/m
     	rampUpTime      = grad_spec(idx).rampup;  % s
@@ -33,6 +33,7 @@ function  grad_series = num__get_gradientPluse_timeSeries(grad_spec, time_points
     	rampDownTime    = grad_spec(idx).rampdown;  % s
         gradShape = grad_spec(idx).shape;
 
+        %% Part II: explain each shape as subfunctions and discretize them
         switch gradShape{1}
             case 'Sinusoid'
                 % disp('The gradient has a sinusoidal shape.');
@@ -47,7 +48,6 @@ function  grad_series = num__get_gradientPluse_timeSeries(grad_spec, time_points
                 time_range = time_points(index);
                 grad_series(index) = amplitude*sin(pi./duration.*(time_range-startTime));
                 clear start_time end_time index time_range
-                
 
             case 'Trapezoid'
                 % disp('The gradient has a trapezoidal shape.');
@@ -83,8 +83,7 @@ function  grad_series = num__get_gradientPluse_timeSeries(grad_spec, time_points
                 end
 
             otherwise
-                disp('The gradient has an undefined shape!')
-                error('The new gradient shape should define its function by yourself!');
+                error('Undefined gradient shape! Please define its sub-functions!');
         end
         clear startTime amplitude rampUpTime duration rampDownTime gradShape
     end

@@ -22,7 +22,7 @@ for idx = 1:(size(time_points,1)-1)
     start_time = combined_grad_pulses(idx).start_time;
     end_time = combined_grad_pulses(idx).end_time;
     
-    %% Step 1: plot the piecewise function of z-axis
+    %% Part I: plot the piecewise function of z-axis
 	subplot(3,1,1);
     fplot(combined_grad_pulses(idx).z_func, [start_time, end_time], 'Linewidth', 2);
 	hold on
@@ -38,7 +38,7 @@ for idx = 1:(size(time_points,1)-1)
         axis([combined_grad_pulses(1).start_time, combined_grad_pulses(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor]) % [-260, 200]
     end
 
-    %% Step 2: plot the piecewise function of y-axis
+    %% Part II: plot the piecewise function of y-axis
 	subplot(3,1,2); 
     fplot(combined_grad_pulses(idx).y_func, [start_time, end_time], 'Linewidth', 2);
 	hold on
@@ -53,7 +53,7 @@ for idx = 1:(size(time_points,1)-1)
         axis([combined_grad_pulses(1).start_time, combined_grad_pulses(end).end_time, -maxAmplitude*scale_factor, maxAmplitude*scale_factor]) % [-70, 60]
     end
     
-    %% Step 3: plot the piecewise function of x-axis
+    %% Part III: plot the piecewise function of x-axis
 	subplot(3,1,3);
     fplot(combined_grad_pulses(idx).x_func, [start_time, end_time], 'Linewidth', 2);
 	hold on

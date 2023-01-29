@@ -1,8 +1,8 @@
 %*************************************************************************
-%	Script name: read_gradSpec_from_excel.m
+%	Script name: parse_gradSpec_of_excel.m
 %
 %   Brief description: 
-%       read gradient specifications for each axis
+%       parse gradient specifications for each axis
 %
 %   input:
 %       filename - the path and name of the excel file
@@ -18,9 +18,9 @@
 %   Copyright 2023, Lisha Yuan (lishayuan@zju.edu.cn)
 %*************************************************************************
 
-function [x_grad_spec, y_grad_spec, z_grad_spec, max_amplitude] = read_gradSpec_from_excel(filename, idx_sheet, base_struct)
+function [x_grad_spec, y_grad_spec, z_grad_spec, max_amplitude] = parse_gradSpec_of_excel(filename, idx_sheet, base_struct)
 
-    %% first, let's get the gradient specifications
+    %% Part I: let's read the gradient specifications
     [sheet_num, ~, sheet_raw] = xlsread(filename, idx_sheet);
     assert(isequal(sheet_raw(1,4:end),[{'StartTime'},{'Ampl'},{'Rut'},{'Dur'},{'Rdt'},{'RepeatTimes'},{'RepeatTimeGap'},{'x_axis'},{'y_axis'},{'z_axis'}]));
     column_indexes = num2cell(4:13);
@@ -29,7 +29,7 @@ function [x_grad_spec, y_grad_spec, z_grad_spec, max_amplitude] = read_gradSpec_
     max_amplitude = 0;
     max_amplitude = max([abs(sheet_num(:,idx_amplitude)); max_amplitude]); % [mT/m]
 
-    %% second, save the specification of individual gradient into each axis
+    %% Part II: put all gradient items of the same axis together
     x_grad_spec = [];
     y_grad_spec = [];
     z_grad_spec = [];
@@ -57,7 +57,7 @@ function [x_grad_spec, y_grad_spec, z_grad_spec, max_amplitude] = read_gradSpec_
             grad_spec = cat(1, grad_spec, tmp_grad_spec);
 
             for idx_repeat = 2:repeat_times
-                new_start_time = start_time + (idx_repeat-1) * repeat_gap;
+                new_start_time = start_time + (idx_repeat - 1) * repeat_gap;
                 tmp_grad_spec.start_time = new_start_time;
                 grad_spec = cat(1, grad_spec, tmp_grad_spec);
                 clear new_start_time

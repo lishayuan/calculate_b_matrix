@@ -2,7 +2,7 @@
 %	Script name: sym__calc_bMatrix_symbolic.m
 %
 %   Brief description: 
-%       calculate b matrix of the continus curve (based on symbolic integral)
+%       calculate b-matrix of the continus curve (based on symbolic integral)
 %
 %   input:
 %       combined_grad_pulses - the 3D piecewise function of gradient pulses
@@ -24,12 +24,13 @@ first_integral_value = integral_func_value;
 first_integral_value.time = combined_grad_pulses(1).start_time;
 % integral_func_value.F_z = 23.96*480;  %(if necessary, like OGSE) assign an initial value 
 
-antiphase_time = [antiphase_time 0xFFFFFFFF];
+antiphase_time = [antiphase_time combined_grad_pulses(end).end_time + 1000];
 num_180RF_pre = 0;
 cur_antiphase_time = antiphase_time(num_180RF_pre + 1);
-tmp_b_matrix = zeros(size(combined_grad_pulses,1),6);
+tmp_b_matrix = zeros(size(combined_grad_pulses, 1), 6);
+
 %% Part II: calculate the b-matrix
-for idx = 1 : size(combined_grad_pulses,1)
+for idx = 1 : size(combined_grad_pulses, 1)
     start_time = combined_grad_pulses(idx).start_time;
     end_time = combined_grad_pulses(idx).end_time;
     
@@ -64,7 +65,7 @@ for idx = 1 : size(combined_grad_pulses,1)
     Fz_end = double(subs(Fz_func, unknown_T, end_time));
     clear Fz_start z_func int_z_func
     
-    %% step 2b: save end_time and the correspinding Fx_end/Fy_end/Fz_end
+    %% step 2: save end_time and the correspinding Fx_end/Fy_end/Fz_end
     first_integral_value = cat(1,first_integral_value, integral_func_value);
     first_integral_value(end).time = end_time;
     first_integral_value(end).F_x = Fx_end;
